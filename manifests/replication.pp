@@ -20,7 +20,7 @@ define percona::replication (
 ) {
 
 	exec { "replication-grant-${name}":
-		command => "mysql -e \"grant replication slave on \'${db}\' to \'${user}\'@\'${host}\' identified by \'${password}\';\"",
+		command => "mysql -e \"grant replication slave on ${db} to \'${user}\'@\'${host}\' identified by \'${password}\';\"",
 		unless 	=> "test `mysql -Nse 'select count(User) from mysql.user where Host=\"${host}\" and User=\"${user}\"'` = 1",
 		path    => ['/usr/bin','/bin',],
 	}
