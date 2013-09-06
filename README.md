@@ -24,11 +24,11 @@ or
 ### Client and server
 
 ```puppet
-    class { 'apt': }
-    class { 'percona': server => true, }
+  class { 'apt': }
+  class { 'percona': server => true, }
 
-    Class['apt'] ->
-    Class['percona']
+  Class['apt'] ->
+  Class['percona']
 ```
 
 ### Configuration
@@ -102,13 +102,16 @@ percona_hash_merge() function.
 
 An example hiera.yaml file:
 
+(Note: we need to put 5.5 and 5.1 between quotes or puppet they are turned into
+numbers which does not play well with the module.
+
 ```yaml
 
 percona_config_global:
-  5.5:
+  "5.5":
     character-set-server: utf8
 
-  5.1:
+  "5.1":
     default-character-set: utf8
 
   global:
@@ -163,9 +166,9 @@ For debian users, the config_include_dir has been defaulted to /etc/mysql/conf.d
     }
 
     percona::rights {'userbar on dbfoo':
-      priv => 'select_priv',
-      host => 'localhost',
-      database => '*'
+      priv     => 'select_priv',
+      host     => 'localhost',
+      database => '*',
       password => 'default',
     }
 
